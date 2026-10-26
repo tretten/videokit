@@ -60,4 +60,4 @@ VideoKit is an MCP server for coding agents. See [AGENTS.md](AGENTS.md).
 
 ## License
 
-Free software under the GNU General Public License, version 3 or later. The app bundles ffmpeg with x264, x265, libvpx, SVT-AV1, and Opus.
+Free software under the GNU General Public License, version 3 or later. The app bundles ffmpeg with x264, x265, libvpx, SVT-AV1, and Opus. The source of the part that runs ffmpeg is at [tretten/videokit-src](https://github.com/tretten/videokit-src).
