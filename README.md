@@ -17,12 +17,13 @@ A Mac app, command line tool, and MCP server that make video small for the web. 
 ## Features
 
 - Takes MOV, MP4, M4V, MKV, WebM, AVI, and GIF, and writes H.264 MP4 by default, or VP9 WebM, AV1 MP4, and HEVC MP4 (for Safari).
-- Quality, not guesses: pick Smaller, Balanced, or Careful, and VideoKit tries encodes until it finds the smallest file that still looks the same as the original. Or give a file size, such as 2 MB, and it finds the best picture that fits, making the picture smaller only when nothing else fits.
+- Pick Smaller, Balanced, or Careful, and VideoKit tries encodes until it finds the smallest file that still looks the same as the original. Or give a file size, such as 2 MB, and it finds the best picture that fits, making the picture smaller only when nothing else fits.
 - Browsers: name the ones you care about (Chrome, Firefox, Safari, Edge, with a minimum version if you like) and VideoKit writes the most efficient format each one plays, plus H.264 for everything else. Modern means recent versions of all four: AV1, VP9, and H.264.
 - Made for video that plays by itself: sound is removed unless you keep it, a poster image of the first frame is optional, and the `<video>` markup for the results is one click away.
-- Limits the longest side and the frame rate (30 by default). Removes camera and location data.
-- Safe by default: the result is saved beside the original with a suffix (`-min`), or replaces it while the original goes to the Trash or an `.originals` folder. A result that is not smaller than the original is not saved. Undo puts a batch back.
-- Before and after preview of each finished file, with playback of the result.
+- Resize: keep the original size or limit the longest side (1920, 1280, 960 px or your own). With a file size goal you choose whether the picture may get smaller to fit, and how small it may get (480 px by default).
+- Limits the frame rate (30 by default). Removes camera and location data.
+- By default the result is saved beside the original with a suffix (`-min`), or replaces it while the original goes to the Trash or an `.originals` folder. A result that is not smaller than the original is not saved. Undo puts a batch back.
+- Before and after preview of each finished video, with playback of the result.
 - Ways in: drag onto the window or the Dock icon, Choose…, the Finder right-click menu (Quick Actions › Compress with VideoKit), a global shortcut that compresses what is selected in Finder (⌃⌥⌘K by default, configurable), and the menu bar icon.
 - Command line tool and MCP server for scripts and coding agents, in the same app (see below).
 - Checks for updates with Sparkle.
@@ -44,6 +45,9 @@ The command line tool is part of the app: `VideoKit.app/Contents/Helpers/videoki
 ```sh
 videokit hero.mov                          # hero-min.mp4 beside the original
 videokit hero.mov --size 2MB               # the best picture that fits 2 MB
+videokit hero.mov --size 2MB --min-side 720   # shrink to fit, but not below 720 px
+videokit hero.mov --size 2MB --no-resize   # keep the size; fail if it does not fit
+videokit hero.mov --max 1280               # longest side 1280 px
 videokit hero.mov --browsers modern        # AV1 + VP9 + H.264 fallback
 videokit hero.mov --level careful --poster --snippet
 videokit --replace hero.mov                # replace it; the original goes to .originals
@@ -60,4 +64,4 @@ VideoKit is an MCP server for coding agents. See [AGENTS.md](AGENTS.md).
 
 ## License
 
-Free software under the GNU General Public License, version 3 or later. The app bundles ffmpeg with x264, x265, libvpx, SVT-AV1, and Opus. The source of the part that runs ffmpeg is at [tretten/videokit-src](https://github.com/tretten/videokit-src).
+Free software under the GNU General Public License, version 3 or later. The app bundles ffmpeg with x264, x265, libvpx, SVT-AV1, and Opus. The source of the part that runs ffmpeg is at [tretten/videokit-core](https://github.com/tretten/videokit-core).
